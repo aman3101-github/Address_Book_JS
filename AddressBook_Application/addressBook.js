@@ -1,16 +1,22 @@
+// addressBook.js
+
 // Import Contact class
 const Contact = require('./contact'); 
 
 class AddressBook {
     constructor() {
-         // Array to store contacts
-        this.contacts = [];
+        // Array to store contacts
+        this.contacts = []; 
     }
 
-    // Add a new contact
+    // Add a new contact with validation
     addContact(contact) {
-        this.contacts.push(contact);
-        console.log("Contact added successfully!");
+        try {
+            this.contacts.push(contact);
+            console.log("Contact added successfully!");
+        } catch (error) {
+            console.error(error.message);
+        }
     }
 
     // Display all contacts
@@ -24,5 +30,5 @@ class AddressBook {
     }
 }
 
-// Export the AddressBook class
+// Export AddressBook class
 module.exports = AddressBook;

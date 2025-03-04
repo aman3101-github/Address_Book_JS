@@ -7,7 +7,7 @@ const addressBook = new AddressBook();
 
 // Add a sample contact
 const contact1 = new Contact("Aman", "Prajapati", "82/A", "Bhopal",
-    "Bpl", "10001", "123-456-7890", "aman.prajapati@example.com");
+    "Bhpl", "10001", "123-456-7890", "aman.prajapati@example.com");
 
 // Add contact to Address Book
 addressBook.addContact(contact1);
