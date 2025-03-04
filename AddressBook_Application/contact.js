@@ -1,4 +1,4 @@
-// contact.js
+// contact file
 class Contact {
     constructor(firstName, lastName, address, city, state, zip, phoneNumber, email) {
         this.firstName = this.validateName(firstName, "First Name");

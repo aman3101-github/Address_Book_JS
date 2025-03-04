@@ -1,4 +1,3 @@
-// addressBook.js
 
 // Import Contact class
 const Contact = require('./contact'); 

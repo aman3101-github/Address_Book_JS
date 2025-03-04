@@ -1,4 +1,4 @@
-// main.js
+// main file
 const AddressBook = require('./addressBook');
 const Contact = require('./contact');
 
