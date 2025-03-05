@@ -46,21 +46,23 @@ class AddressBook {
 
     deleteContact(firstName, lastName) {
         const index = this.contacts.findIndex(contact => contact.firstName === firstName && contact.lastName === lastName);
-
-        if (index === -1) {
-            console.log(` Contact ${firstName} ${lastName} not found in ${this.name}.`);
-            return;
+        if (index !== -1) {
+            this.contacts.splice(index, 1);
+            console.log(`Contact ${firstName} ${lastName} deleted successfully from ${this.name}!`);
+        } else {
+            console.log(`Contact ${firstName} ${lastName} not found in ${this.name}.`);
         }
+    }
 
-        this.contacts.splice(index, 1);
-        console.log(`Contact ${firstName} ${lastName} deleted successfully from ${this.name}.`);
+    getContactCount() {
+        return this.contacts.length;
     }
 
     displayAllContacts() {
         if (this.contacts.length === 0) {
             console.log(`No contacts found in ${this.name}.`);
         } else {
-            console.log(`Address Book: ${this.name}`);
+            console.log(`Address Book: ${this.name} (Total Contacts: ${this.getContactCount()})`);
             this.contacts.forEach(contact => contact.displayContact());
         }
     }

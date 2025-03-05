@@ -9,7 +9,7 @@ class AddressBookManager {
 
     createAddressBook(name) {
         if (this.addressBooks.some(book => book.name === name)) {
-            console.log(` Address Book "${name}" already exists!`);
+            console.log(`Address Book "${name}" already exists!`);
             return;
         }
         const newBook = new AddressBook(name);
@@ -23,10 +23,11 @@ class AddressBookManager {
 
     displayAllAddressBooks() {
         if (this.addressBooks.length === 0) {
-            console.log(" No Address Books available.");
+            console.log("No Address Books available.");
         } else {
-            console.log(" Available Address Books:");
-            this.addressBooks.forEach(book => console.log(`- ${book.name}`));
+            console.log("Available Address Books:");
+            this.addressBooks.forEach(book => 
+                console.log(`- ${book.name} (Total Contacts: ${book.getContactCount()})`));
         }
     }
 }
