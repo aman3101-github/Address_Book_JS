@@ -1,49 +1,36 @@
-// main.js
-
 const AddressBookManager = require('./addressBookManager');
 const Contact = require('./contact');
 
 // Create Address Book Manager
 const manager = new AddressBookManager();
 
-// Create Multiple Address Books
+// Create an Address Book
 manager.createAddressBook("Personal");
-manager.createAddressBook("Work");
 
-// Get Address Books
+// Get Address Book
 const personalBook = manager.getAddressBook("Personal");
-const workBook = manager.getAddressBook("Work");
 
-// Add Contacts to "Personal" Address Book
+// Add Contacts
 try {
-    personalBook.addContact(new Contact("Aman", "Prajapati", "82/A", "Bhopal",
-        "Madhya Pradesh", "90001", "123-456-7809", "aman@example.com"));
+    const contact1 = new Contact("Aman", "Prajapati", "82/A", "Bhopal", "Madhya Pradesh", "90001", "123-456-7809", "aman@example.com");
+    const contact2 = new Contact("Adarsh", "Raghuwanshi", "82/B", "Indore", "Maharashtra", "90051", "245-123-8745", "adarsh@example.com");
+    const contact3 = new Contact("Vikas", "Sharma", "83/C", "Rajsaman", "Rajasthan", "90234", "999-111-2222", "vikas@example.com");
 
-    personalBook.addContact(new Contact("Adarsh", "Raghuwanshi", "82/A", "Indore",
-        "Madhya Pradesh", "90051", "245-123-8745", "adarsh@example.com"));
+    personalBook.addContact(contact1);
+    personalBook.addContact(contact2);
+    personalBook.addContact(contact3);
 } catch (error) {
     console.error(error.message);
 }
 
-// Add Contacts to "Work" Address Book
-try {
-    workBook.addContact(new Contact("Ravi", "Sharma", "120/B", "Mumbai",
-        "Maharashtra", "40001", "111-222-3333", "ravi@example.com"));
+// Display Contacts Before Sorting
+console.log("\nBEFORE SORTING:");
+personalBook.displayAllContacts();
 
-    workBook.addContact(new Contact("Neha", "Verma", "150/C", "Bhopal",
-        "Madhya Pradesh", "90002", "987-654-3210", "neha@example.com"));
-} catch (error) {
-    console.error(error.message);
-}
+// Sort Contacts
+console.log("\nSORTING CONTACTS...");
+personalBook.sortContactsByName();
 
-// View Persons by City
-manager.viewPersonsByCity("Bhopal");
-
-// View Persons by State
-manager.viewPersonsByState("Madhya Pradesh");
-
-// Count Persons by City
-manager.countPersonsByCity();
-
-// Count Persons by State
-manager.countPersonsByState();
+// Display Contacts After Sorting
+console.log("\nAFTER SORTING:");
+personalBook.displayAllContacts();

@@ -1,5 +1,3 @@
-// addressBook.js
-
 const Contact = require('./contact');
 
 class AddressBook {
@@ -9,80 +7,48 @@ class AddressBook {
     }
 
     addContact(contact) {
-        const isDuplicate = this.contacts.filter(c => 
-            c.firstName === contact.firstName && c.lastName === contact.lastName).length > 0;
+        try {
+            // Prevent duplicate entries
+            const isDuplicate = this.contacts.some(
+                c => c.firstName === contact.firstName && c.lastName === contact.lastName
+            );
+            if (isDuplicate) {
+                throw new Error(`Contact ${contact.firstName} ${contact.lastName} already exists in ${this.name}.`);
+            }
 
-        if (isDuplicate) {
-            console.log(` Contact ${contact.firstName} ${contact.lastName} already exists in ${this.name}.`);
-            return;
+            this.contacts.push(contact);
+            console.log(`Contact added successfully to ${this.name}!`);
+        } catch (error) {
+            console.error(error.message);
         }
-
-        this.contacts.push(contact);
-        console.log(` Contact added successfully to ${this.name}!`);
     }
 
     findContactByName(firstName, lastName) {
         return this.contacts.find(contact => contact.firstName === firstName && contact.lastName === lastName);
     }
 
-    editContact(oldFirstName, oldLastName, newDetails) {
-        const contact = this.findContactByName(oldFirstName, oldLastName);
-        if (!contact) {
-            console.log(` Contact ${oldFirstName} ${oldLastName} not found in ${this.name}.`);
-            return;
-        }
-
-        try {
-            contact.firstName = newDetails.firstName ? contact.validateName(newDetails.firstName, "First Name") : contact.firstName;
-            contact.lastName = newDetails.lastName ? contact.validateName(newDetails.lastName, "Last Name") : contact.lastName;
-            contact.address = newDetails.address ? contact.validateAddress(newDetails.address, "Address") : contact.address;
-            contact.city = newDetails.city ? contact.validateAddress(newDetails.city, "City") : contact.city;
-            contact.state = newDetails.state ? contact.validateAddress(newDetails.state, "State") : contact.state;
-            contact.zip = newDetails.zip ? contact.validateZip(newDetails.zip) : contact.zip;
-            contact.phoneNumber = newDetails.phoneNumber ? contact.validatePhone(newDetails.phoneNumber) : contact.phoneNumber;
-            contact.email = newDetails.email ? contact.validateEmail(newDetails.email) : contact.email;
-
-            console.log(` Contact updated successfully in ${this.name}!`);
-        } catch (error) {
-            console.error(` Update failed: ${error.message}`);
-        }
-    }
-
     deleteContact(firstName, lastName) {
-        const initialLength = this.contacts.length;
-        this.contacts = this.contacts.filter(contact => 
-            contact.firstName !== firstName || contact.lastName !== lastName);
-
-        if (this.contacts.length < initialLength) {
-            console.log(` Contact ${firstName} ${lastName} deleted successfully from ${this.name}!`);
+        const index = this.contacts.findIndex(contact => contact.firstName === firstName && contact.lastName === lastName);
+        if (index !== -1) {
+            this.contacts.splice(index, 1);
+            console.log(`Contact ${firstName} ${lastName} deleted successfully from ${this.name}.`);
         } else {
-            console.log(` Contact ${firstName} ${lastName} not found in ${this.name}.`);
+            console.log(`Contact ${firstName} ${lastName} not found in ${this.name}.`);
         }
     }
 
-    getContactCount() {
-        return this.contacts.length;
+    sortContactsByName() {
+        this.contacts.sort((a, b) => a.firstName.localeCompare(b.firstName));
+        console.log("Contacts sorted alphabetically by first name.");
     }
 
     displayAllContacts() {
         if (this.contacts.length === 0) {
-            console.log(` No contacts found in ${this.name}.`);
+            console.log(`No contacts found in ${this.name}.`);
         } else {
-            console.log(` Address Book: ${this.name} (Total Contacts: ${this.getContactCount()})`);
-            this.contacts.forEach(contact => contact.displayContact());
+            console.log(`\nAddress Book: ${this.name}`);
+            this.contacts.forEach(contact => console.log(contact.toString()));
         }
-    }
-
-    // 🔹 Search for persons in a specific city
-    searchByCity(city) {
-        const results = this.contacts.filter(contact => contact.city.toLowerCase() === city.toLowerCase());
-        return results.map(contact => `${contact.firstName} ${contact.lastName}`);
-    }
-
-    // 🔹 Search for persons in a specific state
-    searchByState(state) {
-        const results = this.contacts.filter(contact => contact.state.toLowerCase() === state.toLowerCase());
-        return results.map(contact => `${contact.firstName} ${contact.lastName}`);
     }
 }
 
