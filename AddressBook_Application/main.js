@@ -36,8 +36,14 @@ try {
     console.error(error.message);
 }
 
-//  View Persons by City
+// View Persons by City
 manager.viewPersonsByCity("Bhopal");
 
-//  View Persons by State
+// View Persons by State
 manager.viewPersonsByState("Madhya Pradesh");
+
+// Count Persons by City
+manager.countPersonsByCity();
+
+// Count Persons by State
+manager.countPersonsByState();
