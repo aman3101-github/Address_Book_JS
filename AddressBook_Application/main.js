@@ -27,10 +27,22 @@ try {
 console.log("\nBEFORE SORTING:");
 personalBook.displayAllContacts();
 
-// Sort Contacts
-console.log("\nSORTING CONTACTS...");
+//  Sort by Name
+console.log("\nSORTING CONTACTS BY NAME...");
 personalBook.sortContactsByName();
+personalBook.displayAllContacts();
 
-// Display Contacts After Sorting
-console.log("\nAFTER SORTING:");
+//  Sort by City
+console.log("\nSORTING CONTACTS BY CITY...");
+personalBook.sortContactsByCity();
+personalBook.displayAllContacts();
+
+//  Sort by State
+console.log("\nSORTING CONTACTS BY STATE...");
+personalBook.sortContactsByState();
+personalBook.displayAllContacts();
+
+//  Sort by Zip
+console.log("\nSORTING CONTACTS BY ZIP...");
+personalBook.sortContactsByZip();
 personalBook.displayAllContacts();

@@ -37,9 +37,28 @@ class AddressBook {
         }
     }
 
+    // Sort contacts by Name (case-insensitive)
     sortContactsByName() {
         this.contacts.sort((a, b) => a.firstName.localeCompare(b.firstName));
         console.log("Contacts sorted alphabetically by first name.");
+    }
+
+    // Sort contacts by City (case-insensitive)
+    sortContactsByCity() {
+        this.contacts.sort((a, b) => a.city.localeCompare(b.city));
+        console.log("Contacts sorted alphabetically by City.");
+    }
+
+    // Sort contacts by State (case-insensitive)
+    sortContactsByState() {
+        this.contacts.sort((a, b) => a.state.localeCompare(b.state));
+        console.log("Contacts sorted alphabetically by State.");
+    }
+
+    // Sort contacts by Zip (numerical order)
+    sortContactsByZip() {
+        this.contacts.sort((a, b) => parseInt(a.zip) - parseInt(b.zip));
+        console.log("Contacts sorted numerically by Zip Code.");
     }
 
     displayAllContacts() {
