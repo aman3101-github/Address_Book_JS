@@ -9,7 +9,6 @@ class AddressBook {
     }
 
     addContact(contact) {
-        // Check for duplicates using filter()
         const isDuplicate = this.contacts.filter(c => 
             c.firstName === contact.firstName && c.lastName === contact.lastName).length > 0;
 
@@ -51,8 +50,6 @@ class AddressBook {
 
     deleteContact(firstName, lastName) {
         const initialLength = this.contacts.length;
-
-        // Remove contact using filter()
         this.contacts = this.contacts.filter(contact => 
             contact.firstName !== firstName || contact.lastName !== lastName);
 
@@ -74,6 +71,18 @@ class AddressBook {
             console.log(` Address Book: ${this.name} (Total Contacts: ${this.getContactCount()})`);
             this.contacts.forEach(contact => contact.displayContact());
         }
+    }
+
+    // 🔹 Search for persons in a specific city
+    searchByCity(city) {
+        const results = this.contacts.filter(contact => contact.city.toLowerCase() === city.toLowerCase());
+        return results.map(contact => `${contact.firstName} ${contact.lastName}`);
+    }
+
+    // 🔹 Search for persons in a specific state
+    searchByState(state) {
+        const results = this.contacts.filter(contact => contact.state.toLowerCase() === state.toLowerCase());
+        return results.map(contact => `${contact.firstName} ${contact.lastName}`);
     }
 }
 
