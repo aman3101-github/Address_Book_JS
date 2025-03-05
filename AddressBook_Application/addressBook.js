@@ -9,12 +9,17 @@ class AddressBook {
     }
 
     addContact(contact) {
-        try {
-            this.contacts.push(contact);
-            console.log(`Contact added successfully to ${this.name}!`);
-        } catch (error) {
-            console.error(error.message);
+        // Check for duplicates using filter()
+        const isDuplicate = this.contacts.filter(c => 
+            c.firstName === contact.firstName && c.lastName === contact.lastName).length > 0;
+
+        if (isDuplicate) {
+            console.log(` Contact ${contact.firstName} ${contact.lastName} already exists in ${this.name}.`);
+            return;
         }
+
+        this.contacts.push(contact);
+        console.log(` Contact added successfully to ${this.name}!`);
     }
 
     findContactByName(firstName, lastName) {
@@ -24,7 +29,7 @@ class AddressBook {
     editContact(oldFirstName, oldLastName, newDetails) {
         const contact = this.findContactByName(oldFirstName, oldLastName);
         if (!contact) {
-            console.log(`Contact ${oldFirstName} ${oldLastName} not found in ${this.name}.`);
+            console.log(` Contact ${oldFirstName} ${oldLastName} not found in ${this.name}.`);
             return;
         }
 
@@ -38,19 +43,23 @@ class AddressBook {
             contact.phoneNumber = newDetails.phoneNumber ? contact.validatePhone(newDetails.phoneNumber) : contact.phoneNumber;
             contact.email = newDetails.email ? contact.validateEmail(newDetails.email) : contact.email;
 
-            console.log(`Contact updated successfully in ${this.name}!`);
+            console.log(` Contact updated successfully in ${this.name}!`);
         } catch (error) {
-            console.error(`Update failed: ${error.message}`);
+            console.error(` Update failed: ${error.message}`);
         }
     }
 
     deleteContact(firstName, lastName) {
-        const index = this.contacts.findIndex(contact => contact.firstName === firstName && contact.lastName === lastName);
-        if (index !== -1) {
-            this.contacts.splice(index, 1);
-            console.log(`Contact ${firstName} ${lastName} deleted successfully from ${this.name}!`);
+        const initialLength = this.contacts.length;
+
+        // Remove contact using filter()
+        this.contacts = this.contacts.filter(contact => 
+            contact.firstName !== firstName || contact.lastName !== lastName);
+
+        if (this.contacts.length < initialLength) {
+            console.log(` Contact ${firstName} ${lastName} deleted successfully from ${this.name}!`);
         } else {
-            console.log(`Contact ${firstName} ${lastName} not found in ${this.name}.`);
+            console.log(` Contact ${firstName} ${lastName} not found in ${this.name}.`);
         }
     }
 
@@ -60,9 +69,9 @@ class AddressBook {
 
     displayAllContacts() {
         if (this.contacts.length === 0) {
-            console.log(`No contacts found in ${this.name}.`);
+            console.log(` No contacts found in ${this.name}.`);
         } else {
-            console.log(`Address Book: ${this.name} (Total Contacts: ${this.getContactCount()})`);
+            console.log(` Address Book: ${this.name} (Total Contacts: ${this.getContactCount()})`);
             this.contacts.forEach(contact => contact.displayContact());
         }
     }
