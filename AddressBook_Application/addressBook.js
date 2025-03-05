@@ -40,8 +40,20 @@ class AddressBook {
 
             console.log(`Contact updated successfully in ${this.name}!`);
         } catch (error) {
-            console.error(` Update failed: ${error.message}`);
+            console.error(`Update failed: ${error.message}`);
         }
+    }
+
+    deleteContact(firstName, lastName) {
+        const index = this.contacts.findIndex(contact => contact.firstName === firstName && contact.lastName === lastName);
+
+        if (index === -1) {
+            console.log(` Contact ${firstName} ${lastName} not found in ${this.name}.`);
+            return;
+        }
+
+        this.contacts.splice(index, 1);
+        console.log(`Contact ${firstName} ${lastName} deleted successfully from ${this.name}.`);
     }
 
     displayAllContacts() {

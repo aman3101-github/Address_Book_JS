@@ -16,7 +16,11 @@ const personalBook = manager.getAddressBook("Personal");
 try {
     const contact1 = new Contact("Aman", "Prajapati", "82/A", "Bhopal",
         "CADA", "90001", "123-456-7809", "aman@example.com");
+
+        const contact2 = new Contact("Adarsh", "Raghuwanshi", "82/A", "Bhopal",
+            "DACA", "90051", "245-123-8745", "adarsh@example.com");
     personalBook.addContact(contact1);
+    personalBook.addContact(contact2);
 } catch (error) {
     console.error(error.message);
 }
@@ -35,4 +39,16 @@ personalBook.editContact("Aman", "Prajapati", {
 
 // Display Contacts After Editing
 console.log("\n AFTER EDITING:");
+personalBook.displayAllContacts();
+
+// Display Contacts Before Deleting
+console.log("\n BEFORE DELETION:");
+personalBook.displayAllContacts();
+
+// Find and Delete Contact
+console.log("\n Finding and Deleting Contact...");
+personalBook.deleteContact("Adarsh", "Raghuwanshi");
+
+// Display Contacts After Deleting
+console.log("\n AFTER DELETION:");
 personalBook.displayAllContacts();
